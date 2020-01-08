@@ -1,0 +1,10 @@
+export const ADD_PRODUCT = "ADD_PRODUCT";
+export const SET_PRODUCTS = "SET_PRODUCTS";
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const CHANGE_FORM_STATE = "CHANGE_FORM_STATE ";
+export const CHANGE_MODAL_STATE = "CHANGE_MODAL_STATE";
+export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
+
+
+
+export const SET_EMPLOYEE = "SET_EMPLOYEE";
