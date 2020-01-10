@@ -26,7 +26,7 @@ export default class TableProjects extends Component {
       };
     
       options = {
-        noDataText: 'Listado sin proyectos encontrados',
+        noDataText: 'Listado sin productos encontrados',
         insertBtn: this.createCustomInsertButton,
         handleConfirmDeleteRow: this.deleteRow,
         sortIndicator: true,
@@ -47,9 +47,9 @@ export default class TableProjects extends Component {
         return `<i class='fa fa-money'></i> ${cell}`;
       }
 
-      buttonReqFormatterShow=(cell,row)=>{
-        return (<Button color="success" onClick={()=>{this.props.onOpenModal(true,row.id)}}>Ver Requerimientos</Button>);
-      }      
+      // buttonReqFormatterShow=(cell,row)=>{
+      //   return (<Button color="success" onClick={()=>{this.props.onOpenModal(true,row.id)}}>Ver Requerimientos</Button>);
+      // }      
       buttonReqFormatterEdit=(cell,row)=>{
         return (<Button color="info" onClick={()=>{this.props.onEditData(row)}}>Editar</Button>);
       }      
@@ -58,26 +58,41 @@ export default class TableProjects extends Component {
         return enumObject[cell];
       }
 
-      qualityType = {        
-        1: 'PRODUCTO',
-        2: 'SERVICIO'
+      stateType = {        
+        1: 'DISPONIBLE',
+        2: 'NO DISPONIBLE',
+        3: 'VACÍO'
       };
+
+      category = {
+        1: "Verduras",
+        2: "Frutas",
+        3: "Golosinas",        
+      }
+      
+      type = {
+        1: "Unidad",
+        2: "Kg"
+      }
 
     render() {
         return (
             <div className="animated">
               <Card>
                 <CardHeader>
-                  <i className="icon-menu"></i>Listado de Proyectos{' '}                  
+                  <i className="icon-menu"></i>Listado de Productos{' '}                  
                 </CardHeader>
                 <CardBody>
                   <BootstrapTable data={this.props.data} version="4" deleteRow={ true } exportCSV  searchPlaceholder='Buscar...' selectRow={ this.selectRowProp } striped hover pagination search options={this.options}>
                     <TableHeaderColumn dataField="id" hidden export={false} isKey>ID</TableHeaderColumn>
                     <TableHeaderColumn dataField="name" filter={{type:'TextFilter',placeholder:''}} dataSort>Nombre</TableHeaderColumn>
-                    <TableHeaderColumn dataField="type" filter={{type:'SelectFilter', options:{1: 'PRODUCTO', 2: 'SERVICIO'} ,placeholder:''}} dataFormat={this.enumFormatter} formatExtraData={ this.qualityType } datasort>Tipo</TableHeaderColumn>
-                    <TableHeaderColumn dataField="cost" dataFormat={this.priceFormatter}  dataSort>Costo</TableHeaderColumn>
-                    <TableHeaderColumn dataField="duration" dataSort>Duración</TableHeaderColumn>                    
-                    <TableHeaderColumn dataField="" dataFormat={this.buttonReqFormatterShow}>Ver Requerimientos</TableHeaderColumn>
+                    <TableHeaderColumn dataField="price" dataFormat={this.priceFormatter} dataSort>Precio</TableHeaderColumn>                    
+                    <TableHeaderColumn dataField="stock" dataSort>Stock</TableHeaderColumn>                    
+                    <TableHeaderColumn dataField="state" filter={{type:'SelectFilter', options:{1: 'DISPONIBLE', 2: 'NO DISPONIBLE',3:'VACÍO'} ,placeholder:''}} dataFormat={this.enumFormatter} formatExtraData={ this.stateType } datasort>Estado</TableHeaderColumn>
+                    <TableHeaderColumn dataField="type"  dataFormat={this.enumFormatter} formatExtraData={ this.type }  dataSort>Tipo de Unidad</TableHeaderColumn>
+                    <TableHeaderColumn dataField="category"  dataFormat={this.enumFormatter} formatExtraData={ this.category }  dataSort>Categoría</TableHeaderColumn>                    
+                    {/* <TableHeaderColumn dataField="" dataFormat={this.buttonReqFormatterShow}>Ver Requerimientos</TableHeaderColumn> */}
+                    <TableHeaderColumn dataField="created_at" dataSort>Creado</TableHeaderColumn>
                     <TableHeaderColumn dataField="" dataFormat={this.buttonReqFormatterEdit}>Editar</TableHeaderColumn>
                   </BootstrapTable>
                 </CardBody>

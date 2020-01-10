@@ -40,8 +40,8 @@
     "react-data-table-component": "^6.0.4",
     "pusher-js": "^5.0.3",
     "redux": "^4.0.5",
-    "sweetalert": "^2.1.2"
-
+    "sweetalert": "^2.1.2",
+    "react-bootstrap-table": "^4.3.1"
   },
   "devDependencies": {
     "react-scripts": "^3.0.1"

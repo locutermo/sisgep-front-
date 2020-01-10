@@ -1,7 +1,10 @@
 import React, { Component, Suspense } from 'react';
+import { connect } from 'react-redux';
+
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
 import { Container } from 'reactstrap';
+
 
 import {
   AppAside,
@@ -19,6 +22,9 @@ import {
 import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
+import { fetchGetProducts } from '../../services/api/products';
+import {setProducts} from '../../store/actions'
+
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
@@ -31,6 +37,15 @@ class DefaultLayout extends Component {
   signOut(e) {
     e.preventDefault()
     this.props.history.push('/login')
+  }
+
+  componentDidMount(){
+    fetchGetProducts().then(res => res.json()).then(response => {
+      if (response != null) {
+        console.log(response);
+        this.props.onSetProducts(response);
+      }
+    });
   }
 
   render() {
@@ -89,4 +104,11 @@ class DefaultLayout extends Component {
   }
 }
 
-export default DefaultLayout;
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSetProducts: (products) => dispatch(setProducts(products)),    
+  }
+}
+
+export default connect(null, mapDispatchToProps)(DefaultLayout)
+

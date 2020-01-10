@@ -6,7 +6,7 @@ import productReducer from './reducers/products'
 import loginReducer from './reducers/login'
 //This is the reducing container
 const rootReducers =  combineReducers({
-    products: productReducer,
+    productsReducer: productReducer,
     login: loginReducer,    
 })
 

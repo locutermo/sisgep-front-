@@ -14,9 +14,12 @@ const reducer = (state = initialState, action) => {
                 products: state.products.concat({
                     id: action.pid,
                     name: action.pname,
+                    price: action.pprice,
+                    stock: action.pstock,
+                    state:action.pstock,
                     type: action.ptype,
-                    cost: action.pcost,
-                    duration: action.pduration
+                    category: action.pcategory,          
+                    created_at : action.pcreated_at          
                 })
             };
         case SET_PRODUCTS:
@@ -27,7 +30,7 @@ const reducer = (state = initialState, action) => {
         case DELETE_PRODUCT:
             return {
                 ...state,
-                products: state.products.filter(p => p.id != action.idProject)
+                products: state.products.filter(p => p.id != action.idProduct)
             };
         case CHANGE_FORM_STATE:
             return {
@@ -48,6 +51,10 @@ const reducer = (state = initialState, action) => {
                     if (p.id == action.product.id) {
                         p.name = action.product.name;
                         p.type = action.product.type;
+                        p.price = action.product.price;
+                        p.stock = action.product.stock;
+                        p.state = action.product.state;
+                        p.category = action.product.category
                         return p;
                     } else return p;
                 })

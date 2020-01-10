@@ -2,21 +2,21 @@ import React, { Component } from 'react';
 import { Col, Row, Button } from 'reactstrap';
 import FormNew from './FormNew';
 import FormUpdate from './FormUpdate'
-import TableProjects from './TableProjects'
-import RequirementsModal from './RequirementsModal'
+import TableProducts from './TableProducts'
+
 
 
 import swal from 'sweetalert'
 import { connect } from 'react-redux';
-import { fetchAddProject,fetchDeleteProject, fetchUpdateProject, fetchGetRequirementsProject } from '../../services/api/projects'
+import { fetchAddProduct,fetchDeleteProduct, fetchUpdateProduct, fetchGetOrdersProject } from '../../services/api/products'
 
 
-import { deleteProject, addProject, changeFormState, updateProject, changeModalState } from '../../store/actions/'
+import { deleteProduct, addProduct, changeFormState, updateProduct, changeModalState } from '../../store/actions'
 
-class Project extends Component {
+class Product extends Component {
 
   state = {
-    project: [],
+    product: [],
     isModalOpen: false,    
     reqFromProjects: [],
     isReady: false
@@ -26,17 +26,17 @@ class Project extends Component {
   changeStateModal = (band, id = null) => {
     this.props.onChangeModalState(band);
     if(!band)this.setState({isReady:false});
-    if (id != null) this.getRequirementsFromProject(id);
+    if (id != null) this.getOrdersFromProduct(id);
 
   }
 
   /**
    * Agregar Proyecto
    *
-   * @memberof Project
+   * @memberof Product
    */
-  addData = (project) => {
-    fetchAddProject(project).then((response) => {
+  addData = (product) => {
+    fetchAddProduct(product).then((response) => {
       swal("Operación exitosa!", "Proyecto registrado correctamente!", "success");
       return response.json()
     }).then((data) => {
@@ -49,19 +49,19 @@ class Project extends Component {
   /**
    * Eliminar un proyecto
    *
-   * @memberof Project
+   * @memberof Product
    */
   deleteData = (id) => {
     swal({
-      title: "¿Está seguro de eliminar el proyecto?",
+      title: "¿Está seguro de eliminar el producto?",
       text: "Una vez eliminado, no podrá recuperarlo!! ",
       icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetchDeleteProject(id).then((response) => {
-          swal("Poof! Tu proyecto ha sido eliminado!", { icon: "success", });
+        fetchDeleteProduct(id).then((response) => {
+          swal("Poof! Tu producto ha sido eliminado!", { icon: "success", });
           this.props.onDeleteProject(id)
           return response.json()
         }).then((data) => {
@@ -69,7 +69,7 @@ class Project extends Component {
         }).catch((error) => { console.log() })
 
       } else {
-        swal("Tu proyecto está seguro!");
+        swal("Tu producto está seguro!");
       }
     });
   }
@@ -77,25 +77,25 @@ class Project extends Component {
   /**
    * Obtiene los datos del proyecto que se va a editar
    *
-   * @memberof Project
+   * @memberof Product
    */
-  editData = (project) => {
+  editData = (product) => {
     //Cambiando estado de formulario antes de editar    
     this.changeStateForm(false)
     //Cargando datos 
-    this.setState({ project: project });
+    this.setState({ product: product });
 
   }
 
   /**
    * Actualiza los datos de un proyecto
    *
-   * @memberof Project
+   * @memberof Product
    */
-  updateData = (project) => {
-    fetchUpdateProject(project).then((response) => { return response.json() })
+  updateData = (product) => {
+    fetchUpdateProduct(product).then((response) => { return response.json() })
       .then((data) => {
-        this.props.onUpdateProject(project);
+        this.props.onUpdateProject(product);
         swal("Proyecto actualizado correctamente");
       }).catch(error => {
         console.log(error)
@@ -106,14 +106,14 @@ class Project extends Component {
    * Cambia el estado del formulario 
    * true = formulario de registro
    * false = formulario de edición
-   * @memberof Project
+   * @memberof Product
    */
   changeStateForm = (band) => {
     this.props.onChangeFormState(band);
   }
 
-  getRequirementsFromProject = (id) => {
-    fetchGetRequirementsProject(id).then(response => response.json()).then(data => {
+  getOrdersFromProduct = (id) => {
+    fetchGetOrdersProject(id).then(response => response.json()).then(data => {
       this.setState({ reqFromProjects: data,isReady:true });
     }).catch(error => { console.log(error) })
   }
@@ -124,10 +124,15 @@ class Project extends Component {
   /**
    * Renderiza el formulario según sea el caso
    *
-   * @memberof Project
+   * @memberof Product
    */
   renderForm = () => {
-    return (this.props.projects.isCreate) ? <FormNew onAddedData={this.addData}></FormNew> : <FormUpdate onUpdatedData={this.updateData} onChangeFormState={this.changeStateForm} project={this.state.project} ></FormUpdate>;
+    return (this.props.isCreate) ? <FormNew onAddedData={this.addData}></FormNew> : <FormUpdate onUpdatedData={this.updateData} onChangeFormState={this.changeStateForm} product={this.state.product} ></FormUpdate>;
+  }
+
+
+  componentDidMount(){
+    console.log(this.props)
   }
 
   render() {
@@ -135,13 +140,13 @@ class Project extends Component {
       <div className="animated fadeIn">
         <Row>
           <Col xs="12" sm="6">{this.renderForm()}</Col>
-          <Col xs="12" sm="6">
+          {/* <Col xs="12" sm="6">
             <RequirementsModal onCloseModal={this.changeStateModal} isReady={this.state.isReady} requirements={this.state.reqFromProjects} isModalOpen={this.props.isModalOpen}></RequirementsModal>
-          </Col>
+          </Col> */}
         </Row>
         <Row>
           <Col xs="12" sm="12">
-            <TableProjects onOpenModal={this.changeStateModal} onDeleteData={this.deleteData} onEditData={this.editData} data={this.props.projects.projects}></TableProjects>
+            <TableProducts onOpenModal={this.changeStateModal} onDeleteData={this.deleteData} onEditData={this.editData} data={this.props.products}></TableProducts>
           </Col>    
         </Row>
       </div>
@@ -149,23 +154,25 @@ class Project extends Component {
   }
 }
 
+
+
 const mapDispatchToProps = (dispatch) => {
   return {    
-    onDeleteProject: (id) => dispatch(deleteProject(id)),
-    onAddProject: (project) => dispatch(addProject(project)),
+    onDeleteProject: (id) => dispatch(deleteProduct(id)),
+    onAddProject: (product) => dispatch(addProduct(product)),
     onChangeFormState: (isCreate) => dispatch(changeFormState(isCreate)),
     onChangeModalState: (isModalOpen) => dispatch(changeModalState(isModalOpen)),
-    onUpdateProject: (project) => dispatch(updateProject(project))
+    onUpdateProject: (product) => dispatch(updateProduct(product))
 
   }
 }
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projects,
-    isCreate: state.isCreate,
-    isModalOpen: state.projects.isModalOpen,
+    products: state.productsReducer.products,
+    isCreate: state.productsReducer.isCreate,
+    isModalOpen: state.productsReducer.isModalOpen,
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Project);
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

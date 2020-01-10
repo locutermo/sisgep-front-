@@ -1,14 +1,17 @@
 import {ADD_PRODUCT,SET_PRODUCTS,DELETE_PRODUCT, CHANGE_FORM_STATE, UPDATE_PRODUCT,CHANGE_MODAL_STATE} from './actionTypes'
 
 
-export const addProduct = (project) => {
+export const addProduct = (product) => {
     return {
-        type: ADD_PROJECT,
-        pid: project.id,
-        pname: project.name,
-        ptype: project.type,
-        pcost: project.cost,
-        pduration: project.duration,
+        type: ADD_PRODUCT,
+        pid: product.id,
+        pname: product.name,
+        pprice: product.price,
+        pstock: product.stock,
+        pstate: product.state,
+        ptype: product.type,
+        pcategory: product.category,
+        pcreated_at : product.created_at
 
     }
 }
