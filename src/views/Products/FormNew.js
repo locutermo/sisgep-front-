@@ -99,8 +99,7 @@ class FormNew extends Component {
                   <Input type="select" className="form-control-warning" id="inputSelectStates" value={this.state.state} onChange={(e) => { this.setState({ state: e.target.value }) }} required>
                     <option value={0} label="Seleccione una opcion"></option>
                     {this.renderOptions(this.state.states)}
-                  </Input>
-                  <FormFeedback className="help-block" valid={this.state.type !== ''}>Campo obligatorio</FormFeedback>
+                  </Input>                  
                 </FormGroup>
               </Col>
               <Col xs="12" md="4">
@@ -110,7 +109,7 @@ class FormNew extends Component {
                     <option value={0} label="Seleccione una opcion"></option>
                     {this.renderOptions(this.state.types)}
                   </Input>
-                  <FormFeedback className="help-block" valid={this.state.type !== ''}>Campo obligatorio</FormFeedback>
+                  
                 </FormGroup>
               </Col>
               <Col xs="12" md="4">
@@ -120,7 +119,7 @@ class FormNew extends Component {
                     <option value={0} label="Seleccione una opcion"></option>
                     {this.renderOptions(this.state.categories)}
                   </Input>
-                  <FormFeedback className="help-block" valid={this.state.category !== ''}>Campo obligatorio</FormFeedback>
+                  
                 </FormGroup>
               </Col>
             </Row>

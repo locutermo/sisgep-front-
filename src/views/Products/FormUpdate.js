@@ -111,37 +111,40 @@ export default class FormUpdate extends React.Component {
               <Col xs="12" md="4">
                 <FormGroup>
                   <Label htmlFor="inputSelectStates">Estado</Label>
-                  <Input type="select" className="form-control-warning" id="inputSelectStates" value={this.state.state} onChange={(e) => { this.setState({ state: e.target.value }) }} required>
+                  <Input type="select"  id="inputSelectStates" value={this.state.state} onChange={(e) => { this.setState({ state: e.target.value }) }} >
                     <option value={0} label="Seleccione una opcion"></option>
                     {this.renderOptions(this.state.states)}
-                  </Input>
-                  <FormFeedback className="help-block" valid={this.state.type !== ''}>Campo obligatorio</FormFeedback>
+                  </Input>                  
                 </FormGroup>
               </Col>
               <Col xs="12" md="4">
                 <FormGroup>
                   <Label htmlFor="inputSelectTypes">Tipo</Label>
-                  <Input type="select" className="form-control-warning" id="inputSelectTypes" value={this.state.type} onChange={(e) => { this.setState({ type: e.target.value }) }} required>
+                  <Input type="select" id="inputSelectTypes" value={this.state.type} onChange={(e) => { this.setState({ type: e.target.value }) }} >
                     <option value={0} label="Seleccione una opcion"></option>
                     {this.renderOptions(this.state.types)}
                   </Input>
-                  <FormFeedback className="help-block" valid={this.state.type !== ''}>Campo obligatorio</FormFeedback>
+                  
                 </FormGroup>
               </Col>
               <Col xs="12" md="4">
                 <FormGroup>
                   <Label htmlFor="inputSelectCategories">Categoría</Label>
-                  <Input type="select" className="form-control-warning" id="inputSelectCategories" value={this.state.category} onChange={(e) => { this.setState({ category: e.target.value }) }} required>
+                  <Input type="select" id="inputSelectCategories" value={this.state.category} onChange={(e) => { this.setState({ category: e.target.value }) }} >
                     <option value={0} label="Seleccione una opcion"></option>
                     {this.renderOptions(this.state.categories)}
                   </Input>
-                  <FormFeedback className="help-block" valid={this.state.category !== ''}>Campo obligatorio</FormFeedback>
+                  
                 </FormGroup>
               </Col>
             </Row>
-            <FormGroup>
+            <Row>
+              <Col md="12" center>
+              <FormGroup>
               <Button color="success" onClick={() => { this.validate() }}> Actualizar </Button>
             </FormGroup>
+              </Col>
+            </Row>
           </Form>
         </CardBody>
             </Card>
