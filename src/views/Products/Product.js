@@ -127,7 +127,7 @@ class Product extends Component {
    * @memberof Product
    */
   renderForm = () => {
-    return (this.props.isCreate) ? <FormNew onAddedData={this.addData}></FormNew> : <FormUpdate onUpdatedData={this.updateData} onChangeFormState={this.changeStateForm} product={this.state.product} ></FormUpdate>;
+    return (this.props.isCreate) ? <FormNew categories={this.props.categories} onAddedData={this.addData}></FormNew> : <FormUpdate onUpdatedData={this.updateData} onChangeFormState={this.changeStateForm} product={this.state.product} ></FormUpdate>;
   }
 
 
@@ -139,10 +139,7 @@ class Product extends Component {
     return (
       <div className="animated fadeIn">
         <Row>
-          <Col xs="12" sm="6">{this.renderForm()}</Col>
-          {/* <Col xs="12" sm="6">
-            <RequirementsModal onCloseModal={this.changeStateModal} isReady={this.state.isReady} requirements={this.state.reqFromProjects} isModalOpen={this.props.isModalOpen}></RequirementsModal>
-          </Col> */}
+          <Col xs="12" sm="6">{this.renderForm()}</Col>          
         </Row>
         <Row>
           <Col xs="12" sm="12">
@@ -170,6 +167,7 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   return {
     products: state.productsReducer.products,
+    categories : state.categoriesReducer.categories,
     isCreate: state.productsReducer.isCreate,
     isModalOpen: state.productsReducer.isModalOpen,
   }
