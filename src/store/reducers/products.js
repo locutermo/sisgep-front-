@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
                     name: action.pname,
                     price: action.pprice,
                     stock: action.pstock,
-                    state:action.pstock,
+                    state:action.pstate,
                     type: action.ptype,
                     category: action.pcategory,          
                     created_at : action.pcreated_at          

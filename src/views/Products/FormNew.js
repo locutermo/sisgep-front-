@@ -19,8 +19,7 @@ class FormNew extends Component {
     super(props);
 
     this.state = {
-      states: [{ "id": 1, "value": "DISPONIBLE" }, { "id": 2, "value": "NO DISPONIBLE" }, { "id": 3, "value": "VACÍO" }],
-      categories: [{ "id": 1, "value": "Verduras" }, { "id": 2, "value": "Frutas" }, { "id": 3, "value": "Golosinas" }],
+      states: [{ "id": 1, "value": "DISPONIBLE" }, { "id": 2, "value": "NO DISPONIBLE" }, { "id": 3, "value": "VACÍO" }],      
       types: [{ "id": 1, "value": "Unidad" }, { "id": 2, "value": "Kg" }],
 
       state:'',
@@ -35,6 +34,7 @@ class FormNew extends Component {
   }
 
   getData = () => {
+    
     let product = [];
     product.name = this.state.name;
     product.type = this.state.type;
@@ -42,6 +42,7 @@ class FormNew extends Component {
     product.price = this.state.price ; 
     product.category = this.state.category;
     product.state = this.state.state ; 
+    console.log("DAtos a agregar: ",product);
     return product;
   }
 
@@ -54,6 +55,14 @@ class FormNew extends Component {
   }
 
   renderOptions = (collection) => collection.map(p => { return <option key={p.id} value={p.id} label={p.value}></option> })
+  renderOptionsCategory = (collection) => collection.map(p => { return <option key={p.id} value={p.value} label={p.value}></option> })
+
+  formatterCategories = (categories)=>{
+    let cat = new Object() ;
+    return categories.map(category => {
+      return {id:category.id,value:category.name}
+    })
+  }
 
   validate = () => {
     if (this.state.type != '' && this.state.name != '' && this.state.type != 0) {
@@ -117,7 +126,7 @@ class FormNew extends Component {
                   <Label htmlFor="inputSelectCategories">Categoría</Label>
                   <Input type="select" className="form-control-warning" id="inputSelectCategories" value={this.state.category} onChange={(e) => { this.setState({ category: e.target.value }) }} required>
                     <option value={0} label="Seleccione una opcion"></option>
-                    {this.renderOptions(this.state.categories)}
+                    {this.renderOptionsCategory(this.formatterCategories(this.props.categories))}
                   </Input>
                   
                 </FormGroup>

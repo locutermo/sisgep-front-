@@ -18,5 +18,14 @@ export default {
         text: 'NEW',
       },
     },   
+    {
+      name: 'Categorías',
+      url: '/categories',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info',
+        text: 'NEW',
+      },
+    },   
   ],
 };
