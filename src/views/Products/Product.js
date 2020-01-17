@@ -96,7 +96,7 @@ class Product extends Component {
     fetchUpdateProduct(product).then((response) => { return response.json() })
       .then((data) => {
         this.props.onUpdateProject(product);
-        swal("Proyecto actualizado correctamente");
+        swal("Producto actualizado correctamente");
       }).catch(error => {
         console.log(error)
       })
