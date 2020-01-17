@@ -4,6 +4,7 @@ export const fetchAddCustomer = (customer) => {
   return fetch(CONFIG + 'register', {
     headers: {
       'Content-Type': 'application/json',
+      'Accept':'application/json'
     },
     method: 'POST',
     body: JSON.stringify({
