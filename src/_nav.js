@@ -1,14 +1,14 @@
 export default {
   items: [
-    // {
-    //   name: 'Dashboard',
-    //   url: '/dashboard',
-    //   icon: 'icon-speedometer',
-    //   badge: {
-    //     variant: 'info',
-    //     text: 'NEW',
-    //   },
-    // },
+    {
+      name: 'Inicio',
+      url: '/dashboard',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info',
+        text: 'NEW',
+      },
+    },
     {
       name: 'Productos',
       url: '/products',
