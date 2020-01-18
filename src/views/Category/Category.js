@@ -23,13 +23,13 @@ class Category extends Component {
   }
 
   /**
-   * Agregar Proyecto
+   * Agregar Categoría
    *
    * @memberof Category
    */
   addData = (category) => {
     fetchAddCategory(category).then((response) => {
-      swal("Operación exitosa!", "Proyecto registrado correctamente!", "success");
+      swal("Operación exitosa!", "Categoría registrado correctamente!", "success");
       return response.json()
     }).then((data) => {
       this.props.onAddCategory(data)
@@ -88,7 +88,7 @@ class Category extends Component {
     fetchUpdateCategory(category).then((response) => { return response.json() })
       .then((data) => {
         this.props.onUpdateCategory(category);
-        swal("Proyecto actualizado correctamente");
+        swal("Categoría actualizado correctamente");
       }).catch(error => {
         console.log(error)
       })

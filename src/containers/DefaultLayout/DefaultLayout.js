@@ -25,7 +25,8 @@ import routes from '../../routes';
 import { fetchGetProducts } from '../../services/api/products';
 import { fetchGetCategories } from '../../services/api/categories';
 import { fetchGetCustomers } from '../../services/api/customers';
-import {setProducts,setCategories,setCustomers} from '../../store/actions'
+import { fetchGetOrders } from '../../services/api/orders';
+import {setProducts,setCategories,setCustomers,setOrders} from '../../store/actions'
 
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
@@ -53,7 +54,7 @@ class DefaultLayout extends Component {
     fetchGetCategories().then(res => res.json()).then(response => {
       if (response != null) {
         console.log(response);
-        this.props.setCategories(response);
+        this.props.onSetCategories(response);
       }
     });
     //Obtener clientes
@@ -63,6 +64,14 @@ class DefaultLayout extends Component {
         this.props.onSetCustomers(response.data);
       }
     });
+     //Obtener Pedidos
+     fetchGetOrders().then(res => res.json()).then(response => {
+      if (response != null) {
+        console.log("ORDERS RESPONSE: ",response.data);
+        this.props.onSetOrders(response.data);
+      }
+    });
+
 
 
   }
@@ -127,7 +136,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSetCustomers: (customers) => dispatch(setCustomers(customers)),  
     onSetProducts: (products) => dispatch(setProducts(products)),  
-    setCategories: (categories) => dispatch(setCategories(categories)),  
+    onSetCategories: (categories) => dispatch(setCategories(categories)),  
+    onSetOrders: (orders) => dispatch(setOrders(orders)),  
   }
 }
 

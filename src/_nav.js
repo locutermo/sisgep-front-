@@ -36,5 +36,14 @@ export default {
         text: 'NEW',
       },
     }, 
+    {
+      name: 'Pedidos',
+      url: '/orders',
+      icon: 'icon-people',
+      badge: {
+        variant: 'info',
+        text: 'NEW',
+      },
+    }, 
   ],
 };

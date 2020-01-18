@@ -31,13 +31,13 @@ class Product extends Component {
   }
 
   /**
-   * Agregar Proyecto
+   * Agregar Producto
    *
    * @memberof Product
    */
   addData = (product) => {
     fetchAddProduct(product).then((response) => {
-      swal("Operación exitosa!", "Proyecto registrado correctamente!", "success");
+      swal("Operación exitosa!", "Producto registrado correctamente!", "success");
       return response.json()
     }).then((data) => {
       this.props.onAddProject(data)

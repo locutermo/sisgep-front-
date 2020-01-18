@@ -13,7 +13,13 @@ export const SET_CUSTOMERS = "SET_CUSTOMERS";
 export const DELETE_CUSTOMER = "DELETE_CUSTOMER";
 export const UPDATE_CUSTOMER = "UPDATE_CUSTOMER";
 
+export const SET_ORDERS = "SET_ORDERS"; 
+export const ADD_ORDER = "ADD_ORDER";
+export const UPDATE_ORDER = "UPDATE_ORDER"
+
 export const SET_EMPLOYEE = "SET_EMPLOYEE";
+
+
 
 export const CHANGE_FORM_STATE = "CHANGE_FORM_STATE ";
 export const CHANGE_MODAL_STATE = "CHANGE_MODAL_STATE";
