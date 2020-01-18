@@ -17,6 +17,12 @@ export const fetchAddOrder = (order) => {
   })
 }
 
+export const fetchGetTotalAmounts = ()=>{
+  return fetch(CONFIG + 'orders/getTotalAmount', {
+    method: 'GET'
+  })
+}
+
 
 export const fetchGetOrders = () => {
   return fetch(CONFIG + 'orders', {

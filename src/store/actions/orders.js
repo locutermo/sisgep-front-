@@ -1,4 +1,4 @@
-import { ADD_ORDER, UPDATE_ORDER, SET_ORDERS, CHANGE_FORM_STATE} from './actionTypes'
+import { ADD_ORDER, UPDATE_ORDER, SET_ORDERS, CHANGE_FORM_STATE,SET_TOTAL_AMOUNT,INCREMENT_TOTAL_AMOUNT,UPDATE_TOTAL_AMOUNT} from './actionTypes'
 
 
 export const addOrder = (order) => {
@@ -17,6 +17,31 @@ export const addOrder = (order) => {
         date : order.date,
         created_at : order.created_at       
 
+    }
+}
+
+export const updateTotalAmount = (amount)=>{
+    return{
+        type: UPDATE_TOTAL_AMOUNT,        
+        amount : amount 
+    }
+}
+
+export const incrementTotalAmount = (state,amount)=>{
+    return{
+        type: INCREMENT_TOTAL_AMOUNT,
+        state : state ,
+        amount : amount 
+    }
+}
+
+
+
+export const setTotalAmount = (sales,debts)=>{
+    return{
+        type: SET_TOTAL_AMOUNT,
+        sales: sales , 
+        debts : debts 
     }
 }
 
