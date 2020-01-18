@@ -73,9 +73,6 @@ const reducer = (state = initialState, action) => {
                     if(customer.id == action.id){
                         if(action.state==1) customer.totalSales = customer.totalSales + action.amount;
                         else if(action.state==2) customer.totalDebts = customer.totalDebts + action.amount;
-                        
-                        console.log("CLIENTE DESPUES DE INCREMENTAR",customer);
-
                         return customer ; 
                     }else return customer;
                     
@@ -87,13 +84,9 @@ const reducer = (state = initialState, action) => {
             return{
                 ...state , 
                 customers:state.customers.map(customer=>{
-                    console.log("CLIENTE _:",customer,"action: ",action);
                     if(customer.id == action.id){
                         customer.totalSales = customer.totalSales + action.amount;
                         customer.totalDebts = customer.totalDebts - action.amount;
-                        console.log("TOTAL DEBTS - AMOUNT : ",customer.TotalDebts - action.amount);
-                        console.log("TOTAL DEBTS: ",customer.totalDebts);
-                        console.log("CLIENTE A ACTUALIZAR SUS VENTAS O DEUDAS",customer.name);
                         return customer ; 
                     }else return customer ;
                 })

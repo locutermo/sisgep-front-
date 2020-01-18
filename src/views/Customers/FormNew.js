@@ -39,7 +39,6 @@ class FormNew extends Component {
     customer.email = this.state.email;
     customer.address = this.state.address;
     customer.birthday = this.state.birthday;
-    console.log("Datos a agregar: ", customer);
     return customer;
   }
 

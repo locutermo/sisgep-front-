@@ -64,6 +64,10 @@ export default class TableCustomers extends Component {
         return `${row.name} ${row.lastName}`;
       }
 
+      customMoney(cell, row) { 
+        return `S/${cell}`;
+      }
+
       stockFormatter(cell,row){
         return (cell>20?<h4><Badge color="primary">{cell}</Badge></h4>:<h4><Badge color="danger">{cell}</Badge></h4>)
       } 
@@ -96,16 +100,16 @@ export default class TableCustomers extends Component {
                 <CardBody>
                   <BootstrapTable data={this.props.data || []} version="4" deleteRow={ true } exportCSV  searchPlaceholder='Buscar...' selectRow={ this.selectRowProp } striped hover pagination search options={options}>
                     <TableHeaderColumn row='0' rowSpan='2' dataField="id" hidden export={false} isKey>ID</TableHeaderColumn>
-                    <TableHeaderColumn row='0' colSpan='3' dataSort csvHeader='Cliente' headerAlign='center'>Cliente</TableHeaderColumn>
-                    <TableHeaderColumn row='1' dataAlign='center'  dataField="name"   dataSort>Nombre</TableHeaderColumn>
+                    <TableHeaderColumn row='0' colSpan='5' dataSort csvHeader='Cliente' headerAlign='center'>Cliente</TableHeaderColumn>
+                    <TableHeaderColumn row='1' dataAlign='center' dataField="name"   dataSort>Nombre</TableHeaderColumn>
                     <TableHeaderColumn row='1' dataAlign='center'  width='175'  dataField="lastName" dataSort>Apellidos</TableHeaderColumn>                                                        
                     <TableHeaderColumn row='1' dataAlign='center' dataField="dni"  width='100' dataSort>DNI</TableHeaderColumn>                                                        
-                    <TableHeaderColumn row='0' dataAlign='center' rowSpan='2' dataField="phone" dataSort>Nº Celular</TableHeaderColumn>                    
-                    <TableHeaderColumn row='0' dataAlign='center' rowSpan='2' dataField="email"  datasort>Correo Electrónico</TableHeaderColumn>
+                    <TableHeaderColumn row='1' dataAlign='center' dataFormat={this.customMoney} dataField="totalSales"  width='100' dataSort>Ventas</TableHeaderColumn>                                                        
+                    <TableHeaderColumn row='1' dataAlign='center' dataFormat={this.customMoney} dataField="totalDebts"  width='100' dataSort>Deudas</TableHeaderColumn>                                                        
+                    <TableHeaderColumn row='0' dataAlign='center'  rowSpan='2' dataField="phone" dataSort>Nº Celular</TableHeaderColumn>                    
+                    <TableHeaderColumn row='0' dataAlign='center'  rowSpan='2' dataField="email"  datasort>Correo Electrónico</TableHeaderColumn>
                     <TableHeaderColumn row='0' dataAlign='center' rowSpan='2' dataField="address"  dataSort>Dirección</TableHeaderColumn>
-                    <TableHeaderColumn row='0' width='120' dataAlign='center' rowSpan='2' dataField="birthday" dataSort>Fecha de Nac.</TableHeaderColumn>                    
-                    {/* <TableHeaderColumn dataField="" dataFormat={this.buttonReqFormatterShow}>Ver Requerimientos</TableHeaderColumn> */}
-                    {/* <TableHeaderColumn dataField="created_at" dataSort>Creado</TableHeaderColumn> */}
+                    <TableHeaderColumn row='0' width='150' dataAlign='center' rowSpan='2' dataField="birthday" dataSort>Fecha de Nac.</TableHeaderColumn>                                        
                     <TableHeaderColumn row='0'  dataAlign='center' width='100' rowSpan='2' dataField="" dataFormat={this.buttonReqFormatterEdit}>Editar</TableHeaderColumn>
                   </BootstrapTable>
                 </CardBody>

@@ -30,15 +30,11 @@ class Order extends Component {
     fetchAddOrder(order).then((response) => {      
       return response.json()
     }).then((data) => {
-      console.log("DATA:",data);
       if(data.response==="success"){
         this.props.onAddOrder(data.order);
         this.props.onIncrementTotalAmount(data.order.state,data.order.amount);
         this.props.onUpdateProduct(data.productUpdated);
-        
         this.props.onIncrementTotalAmountOfCustomer(order.user_id,order.state,order.amount);
-        console.log("CLIENTES ANTES DE INCREMENTAR EL MONTO DEL CLIENTE :",this.props.customers)
-
         swal("Operación exitosa!",data.message,data.response);
       }else{
         swal("Operación fallida!",data.message,data.response);
@@ -58,28 +54,19 @@ class Order extends Component {
     fetchUpdateOrder(order).then((response) => { return response.json() })
       .then((data) => {
         if(data.response==="success"){
-          console.log("CLIENTES ANTES DE ACTUALIZAR EL PEDIDO :",this.props.customers)
           this.props.onUpdateOrder(order);
-          console.log("CLIENTES ANTES DE ACTUALIZAR EL MONTO  TOTAL:",this.props.customers)
           this.props.onUpdateTotalAmount(order.amount);
-          console.log("PEDIDO ANTES DE ACTUALIZAR AL USUARIO:",order);
-          console.log("CLIENTES ANTES DE ACTUALIZAR:",this.props.customers)
           this.props.onUpdateTotalAmountOfCustomer(order.user_id,order.amount);
           swal("Operación exitosa!",data.message,data.response);
         }else{
           swal("Operación fallida!",data.message,data.response);
         }
-        console.log("CLIENTES:",this.props.customers);
 
       }).catch(error => {
         console.log(error)
       })
   }
   
- 
-  componentDidMount(){
-    console.log(this.props)
-  }
 
   render() {
     return (

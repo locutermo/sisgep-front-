@@ -29,7 +29,7 @@ class Category extends Component {
    */
   addData = (category) => {
     fetchAddCategory(category).then((response) => {
-      swal("Operación exitosa!", "Categoría registrado correctamente!", "success");
+      swal("Operación exitosa!", "Categoría registrada correctamente!", "success");
       return response.json()
     }).then((data) => {
       this.props.onAddCategory(data)
@@ -45,7 +45,7 @@ class Category extends Component {
    */
   deleteData = (id) => {
     swal({
-      title: "¿Está seguro de eliminar el categoryo?",
+      title: "¿Está seguro de eliminar la Categoría?",
       text: "Una vez eliminado, no podrá recuperarlo!! ",
       icon: "warning",
       buttons: true,
@@ -53,7 +53,7 @@ class Category extends Component {
     }).then((willDelete) => {
       if (willDelete) {
         fetchDeleteCategory(id).then((response) => {
-          swal("Poof! Tu categoryo ha sido eliminado!", { icon: "success", });
+          swal("Poof! La Categoría ha sido eliminado!", { icon: "success", });
           this.props.onDeleteCategory(id)
           return response.json()
         }).then((data) => {
@@ -61,7 +61,7 @@ class Category extends Component {
         }).catch((error) => { console.log() })
 
       } else {
-        swal("Tu categoryo está seguro!");
+        swal("Tu Categoría está seguro!");
       }
     });
   }

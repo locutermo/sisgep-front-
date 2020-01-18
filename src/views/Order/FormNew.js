@@ -28,14 +28,7 @@ class FormNew extends Component {
       state: '',
       employee_id: 1
     };
-  }
-
-  componentDidMount(){
-    console.log(this.state.price * this.state.quantity);
-    console.log(this.state.price);
-    console.log(this.state.quantity);
-  }
- 
+  } 
   renderAmount=()=>{    
       return `S/${this.state.productSelected.price * this.state.quantity}`; 
   }
@@ -49,10 +42,7 @@ class FormNew extends Component {
   renderOptionsProducts = (collection) => collection.map(p => { return <option key={p.id} value={JSON.stringify({"id":p.id,"price":p.price})} label={p.name+' | '+p.stock+" | S/"+p.price}></option> })
   
   onChangeProduct=(event) =>{    
-    console.log("Event: ",event);
-    console.log("Value: ",event.target);
-    let obj = JSON.parse(event.target.value);
-     console.log("OBJ: ",obj,"price: ",this.state.price);     
+    let obj = JSON.parse(event.target.value);     
      this.setState({product_id:obj.id,price:obj.price});
   }
 

@@ -45,29 +45,25 @@ class DefaultLayout extends Component {
   componentDidMount(){
     //Obtener productos
     fetchGetProducts().then(res => res.json()).then(response => {
-      if (response != null) {
-        console.log(response);
+      if (response != null) {        
         this.props.onSetProducts(response);
       }
     });
     //Obtener categorias
     fetchGetCategories().then(res => res.json()).then(response => {
-      if (response != null) {
-        console.log(response);
+      if (response != null) {        
         this.props.onSetCategories(response);
       }
     });
     //Obtener clientes
     fetchGetCustomers().then(res => res.json()).then(response => {
       if (response != null) {
-        console.log("CUSTOMERS RESPONSE: ",response.data);
         this.props.onSetCustomers(response.data);
       }
     });
      //Obtener Pedidos
      fetchGetOrders().then(res => res.json()).then(response => {
       if (response != null) {
-        console.log("ORDERS RESPONSE: ",response.data);
         this.props.onSetOrders(response.data);
       }
     });
@@ -75,7 +71,6 @@ class DefaultLayout extends Component {
      //Obtener Pedidos
      fetchGetTotalAmounts().then(res => res.json()).then(response => {
       if (response != null) {
-        console.log("ORDERS RESPONSE: ",response.data);
         this.props.onSetTotalAmount(response.totalSales,response.totalDebts);
       }
     });

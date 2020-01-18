@@ -96,7 +96,6 @@ class Dashboard extends Component {
     renderCustomerRow = (customers) => {
         return (
             customers.sort((a,b)=> b.totalSales - a.totalSales).map((customer,index) => {
-                console.log(index);
                 if(index<10){
                     return (
                         <tr>
