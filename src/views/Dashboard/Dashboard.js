@@ -95,45 +95,48 @@ class Dashboard extends Component {
     monthsSales = [{ 'name': "Enero", "salePer": "10", "debtPer": "20" }, { 'name': "Febrero", "salePer": "10", "debtPer": "20" },{ 'name': "Marzo", "salePer": "10", "debtPer": "20" }]
     renderCustomerRow = (customers) => {
         return (
-            customers.map(customer => {
-                return (
-                    <tr>
-                        <td className="text-center">
-                            <div className="avatar">
-                                <img src={'assets/img/avatars/1.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
-                                <span className="avatar-status badge-danger"></span>
-                            </div>
-                        </td>
-                        <td>
-                            <div>{customer.name}</div>
-                            <div className="small text-muted">
-                                <span>Nuevo</span> | Registrado: {customer.created_at}
-                            </div>
-                        </td>
-                        <td className="text-center">
-                            {/* <i className="flag-icon flag-icon-pe h4 mb-0" title="pl" id="pl"></i> */}
-                            <span className="" style={{ fontSize: 16 + 'px' }}>S/{customer.totalDebts}</span>
-                        </td>
-                        <td>
-                            <div className="clearfix">
-                                <div className="float-left">
-                                    <strong>{Math.round(customer.totalSales/this.props.orderState.totalSales * 100)}%</strong>
+            customers.sort((a,b)=> b.totalSales - a.totalSales).map((customer,index) => {
+                console.log(index);
+                if(index<10){
+                    return (
+                        <tr>
+                            <td className="text-center">
+                                <div className="avatar">
+                                    <img src={'assets/img/avatars/1.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    <span className="avatar-status badge-danger"></span>
                                 </div>
-                                {/* <div className="float-right">
-                                    <small className="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                                </div> */}
-                            </div>
-                            <Progress className="progress-xs" color="success" value={Math.round(customer.totalSales/this.props.orderState.totalSales * 100)} />
-                        </td>
-                        <td className="text-center">
-                            <span className="" style={{ fontSize: 16 + 'px' }}>S/{customer.totalSales}</span>
-                        </td>
-                        <td>
-                            <div className="small text-muted">Ultima compra</div>
-                            <strong>Ayer</strong>
-                        </td>
-                    </tr>
-                )
+                            </td>
+                            <td>
+                                <div>{customer.name}</div>
+                                <div className="small text-muted">
+                                    <span>Nuevo</span> | Registrado: {customer.created_at}
+                                </div>
+                            </td>
+                            <td className="text-center">
+                                {/* <i className="flag-icon flag-icon-pe h4 mb-0" title="pl" id="pl"></i> */}
+                                <span className="" style={{ fontSize: 16 + 'px' }}>S/{customer.totalDebts}</span>
+                            </td>
+                            <td>
+                                <div className="clearfix">
+                                    <div className="float-left">
+                                        <strong>{Math.round(customer.totalSales/this.props.orderState.totalSales * 100)}%</strong>
+                                    </div>
+                                    {/* <div className="float-right">
+                                        <small className="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
+                                    </div> */}
+                                </div>
+                                <Progress className="progress-xs" color="success" value={Math.round(customer.totalSales/this.props.orderState.totalSales * 100)} />
+                            </td>
+                            <td className="text-center">
+                                <span className="" style={{ fontSize: 16 + 'px' }}>S/{customer.totalSales}</span>
+                            </td>
+                            <td>
+                                <div className="small text-muted">Ultima compra</div>
+                                <strong>Ayer</strong>
+                            </td>
+                        </tr>
+                    )
+                }else return null 
             })
         )
     }
