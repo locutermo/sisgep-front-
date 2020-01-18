@@ -95,45 +95,47 @@ class Dashboard extends Component {
     monthsSales = [{ 'name': "Enero", "salePer": "10", "debtPer": "20" }, { 'name': "Febrero", "salePer": "10", "debtPer": "20" },{ 'name': "Marzo", "salePer": "10", "debtPer": "20" }]
     renderCustomerRow = (customers) => {
         return (
-            customers.map(customer => {
-                return (
-                    <tr>
-                        <td className="text-center">
-                            <div className="avatar">
-                                <img src={'assets/img/avatars/1.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
-                                <span className="avatar-status badge-danger"></span>
-                            </div>
-                        </td>
-                        <td>
-                            <div>{customer.name}</div>
-                            <div className="small text-muted">
-                                <span>Nuevo</span> | Registrado: {customer.created_at}
-                            </div>
-                        </td>
-                        <td className="text-center">
-                            {/* <i className="flag-icon flag-icon-pe h4 mb-0" title="pl" id="pl"></i> */}
-                            <span className="" style={{ fontSize: 16 + 'px' }}>S/0.00</span>
-                        </td>
-                        <td>
-                            <div className="clearfix">
-                                <div className="float-left">
-                                    <strong>0%</strong>
+            customers.sort((a,b)=> b.totalSales - a.totalSales).map((customer,index) => {
+                if(index<10){
+                    return (
+                        <tr>
+                            <td className="text-center">
+                                <div className="avatar">
+                                    <img src={'assets/img/avatars/1.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" />
+                                    <span className="avatar-status badge-danger"></span>
                                 </div>
-                                {/* <div className="float-right">
-                                    <small className="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
-                                </div> */}
-                            </div>
-                            <Progress className="progress-xs" color="success" value="0" />
-                        </td>
-                        <td className="text-center">
-                            <span className="" style={{ fontSize: 16 + 'px' }}>S/0.00</span>
-                        </td>
-                        <td>
-                            <div className="small text-muted">Ultima compra</div>
-                            <strong>Ayer</strong>
-                        </td>
-                    </tr>
-                )
+                            </td>
+                            <td>
+                                <div>{customer.name}</div>
+                                <div className="small text-muted">
+                                    <span>Nuevo</span> | Registrado: {customer.created_at}
+                                </div>
+                            </td>
+                            <td className="text-center">
+                                {/* <i className="flag-icon flag-icon-pe h4 mb-0" title="pl" id="pl"></i> */}
+                                <span className="" style={{ fontSize: 16 + 'px' }}>S/{customer.totalDebts}</span>
+                            </td>
+                            <td>
+                                <div className="clearfix">
+                                    <div className="float-left">
+                                        <strong>{Math.round(customer.totalSales/this.props.orderState.totalSales * 100)}%</strong>
+                                    </div>
+                                    {/* <div className="float-right">
+                                        <small className="text-muted">Jun 11, 2015 - Jul 10, 2015</small>
+                                    </div> */}
+                                </div>
+                                <Progress className="progress-xs" color="success" value={Math.round(customer.totalSales/this.props.orderState.totalSales * 100)} />
+                            </td>
+                            <td className="text-center">
+                                <span className="" style={{ fontSize: 16 + 'px' }}>S/{customer.totalSales}</span>
+                            </td>
+                            <td>
+                                <div className="small text-muted">Ultima compra</div>
+                                <strong>Ayer</strong>
+                            </td>
+                        </tr>
+                    )
+                }else return null 
             })
         )
     }
@@ -219,12 +221,12 @@ class Dashboard extends Component {
             <React.Fragment>
                 <Row>
                     <Col xs="12" sm="6" lg="3">
-                        <Widget01 color="primary" variant="" header="S/0.00" mainText="Ingresos totales" smallText="">
+                        <Widget01 color="primary" variant="" header={`S/${this.props.orderState.totalSales}`} mainText="Ingresos totales" smallText="">
                             <small className="text-muted">Ingreso por venta de productos</small>
                         </Widget01>
                     </Col>
                     <Col xs="12" sm="6" lg="3">
-                        <Widget01 color="primary" variant="" header="S/0.00" mainText="Deudas totales" smallText="">
+                        <Widget01 color="primary" variant="" header={`S/${this.props.orderState.totalDebts}`} mainText="Deudas totales" smallText="">
                             <small className="text-muted">Deudas por productos fiados</small>
                         </Widget01>
                     </Col>
@@ -278,7 +280,7 @@ class Dashboard extends Component {
                                                 <div className="callout callout-info">
                                                     <small className="text-muted">Ventas</small>
                                                     <br />
-                                                    <strong className="h4">S/0.00</strong>
+                                                    <strong className="h4">S/{this.props.orderState.totalSales}</strong>
                                                     <div className="chart-wrapper">
                                                         <Line data={makeSparkLineData(0, brandPrimary)} options={sparklineChartOpts} width={100} height={30} />
                                                     </div>
@@ -288,7 +290,7 @@ class Dashboard extends Component {
                                                 <div className="callout callout-danger">
                                                     <small className="text-muted">Deudas </small>
                                                     <br />
-                                                    <strong className="h4">S/0.00</strong>
+                                                    <strong className="h4">S/{this.props.orderState.totalDebts}</strong>
                                                     <div className="chart-wrapper">
                                                         <Line data={makeSparkLineData(1, brandDanger)} options={sparklineChartOpts} width={100} height={30} />
                                                     </div>
@@ -366,7 +368,8 @@ const mapStateToProps = (state) => {
     return {
         categories: state.categoriesReducer.categories,
         products: state.productsReducer.products,
-        customers: state.customersReducer.customers
+        customers: state.customersReducer.customers,
+        orderState: state.ordersReducer
     }
 }
 

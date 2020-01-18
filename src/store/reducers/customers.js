@@ -1,4 +1,4 @@
-import { ADD_CUSTOMER, SET_CUSTOMERS, DELETE_CUSTOMER, CHANGE_FORM_STATE, UPDATE_CUSTOMER,CHANGE_MODAL_STATE } from '../actions/actionTypes'
+import { ADD_CUSTOMER, SET_CUSTOMERS, DELETE_CUSTOMER, CHANGE_FORM_STATE, UPDATE_CUSTOMER,CHANGE_MODAL_STATE ,INCREMENT_TOTAL_AMOUNT_OF_CUSTOMER,UPDATE_TOTAL_AMOUNT_OF_CUSTOMER} from '../actions/actionTypes'
 const initialState = {
     customers: [],
     isCreate: true,
@@ -19,7 +19,9 @@ const reducer = (state = initialState, action) => {
                     phone:action.phone,
                     address: action.address,
                     birthday: action.birthday,          
-                    created_at : action.created_at          
+                    created_at : action.created_at,
+                    totalSales : action.totalSales,
+                    totalDebts :  action.totalDebts ,         
                 })
             };
         case SET_CUSTOMERS:
@@ -62,6 +64,35 @@ const reducer = (state = initialState, action) => {
                 })
             }
         }
+
+
+        case INCREMENT_TOTAL_AMOUNT_OF_CUSTOMER:{
+            return{
+                ...state,
+                customers: state.customers.map(customer => {
+                    if(customer.id == action.id){
+                        if(action.state==1) customer.totalSales = customer.totalSales + action.amount;
+                        else if(action.state==2) customer.totalDebts = customer.totalDebts + action.amount;
+                        return customer ; 
+                    }else return customer;
+                    
+                })
+            }
+        }
+
+        case UPDATE_TOTAL_AMOUNT_OF_CUSTOMER:{
+            return{
+                ...state , 
+                customers:state.customers.map(customer=>{
+                    if(customer.id == action.id){
+                        customer.totalSales = customer.totalSales + action.amount;
+                        customer.totalDebts = customer.totalDebts - action.amount;
+                        return customer ; 
+                    }else return customer ;
+                })
+            }
+        }
+
 
         default: return state
 

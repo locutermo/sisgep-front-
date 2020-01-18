@@ -1,4 +1,4 @@
-import {ADD_CUSTOMER,SET_CUSTOMERS,DELETE_CUSTOMER, CHANGE_FORM_STATE, UPDATE_CUSTOMER,CHANGE_MODAL_STATE} from './actionTypes'
+import {ADD_CUSTOMER,SET_CUSTOMERS,DELETE_CUSTOMER, CHANGE_FORM_STATE, UPDATE_CUSTOMER,CHANGE_MODAL_STATE,INCREMENT_TOTAL_AMOUNT_OF_CUSTOMER,UPDATE_TOTAL_AMOUNT_OF_CUSTOMER} from './actionTypes'
 
 
 export const addCustomer = (customer) => {
@@ -12,10 +12,13 @@ export const addCustomer = (customer) => {
         email: customer.email,
         address: customer.address,
         birthday: customer.birthday,
-        created_at : customer.created_at
-
+        created_at : customer.created_at,
+        totalSales : 0 , 
+        totalDebts : 0
     }
 }
+
+
 
 export const setCustomers = (customers) => {
     return{
@@ -50,5 +53,26 @@ export const updateCustomer = (customer) => {
     return {
         type: UPDATE_CUSTOMER,
         customer : customer 
+    }
+}
+
+
+
+
+
+export const updateTotalAmountOfCustomer= (idCustomer,amount)=>{
+    return{
+        type: UPDATE_TOTAL_AMOUNT_OF_CUSTOMER,    
+        id : idCustomer,    
+        amount : amount 
+    }
+}
+
+export const incrementTotalAmountOfCustomer = (idCustomer,state,amount)=>{
+    return{
+        type: INCREMENT_TOTAL_AMOUNT_OF_CUSTOMER,
+        state : state ,
+        id:idCustomer,
+        amount : amount 
     }
 }

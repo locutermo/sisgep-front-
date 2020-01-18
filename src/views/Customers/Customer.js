@@ -31,13 +31,13 @@ class Customer extends Component {
   }
 
   /**
-   * Agregar Proyecto
+   * Agregar Cliente
    *
    * @memberof Customer
    */
   addData = (customer) => {
     fetchAddCustomer(customer).then((response) => {
-      swal("Operación exitosa!", "Proyecto registrado correctamente!", "success");
+      swal("Operación exitosa!", "Cliente registrado correctamente!", "success");
       return response.json()
     }).then((data) => {
       console.log("ADDDATA: ",data);

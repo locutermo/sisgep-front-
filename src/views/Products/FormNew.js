@@ -42,7 +42,6 @@ class FormNew extends Component {
     product.price = this.state.price ; 
     product.category = this.state.category;
     product.state = this.state.state ; 
-    console.log("DAtos a agregar: ",product);
     return product;
   }
 

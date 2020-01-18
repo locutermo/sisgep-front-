@@ -46,7 +46,6 @@ export default class FormUpdate extends React.Component {
       }
 
     componentDidMount() {
-        console.log("Insertando datos al renderizar")
         this.setState({ name: this.props.product.name,stock:this.props.product.stock,state:this.props.product.state,price:this.props.product.price, type: this.props.product.type,category:this.props.product.category, id: this.props.product.id });
     }
 

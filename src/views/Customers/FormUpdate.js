@@ -40,12 +40,10 @@ export default class FormUpdate extends React.Component {
       customer.email = this.state.email;
       customer.address = this.state.address;
       customer.birthday = this.state.birthday;
-      console.log("Datos a agregar: ", customer);
       return customer;
       }
 
     componentDidMount() {
-        console.log("Insertando datos al renderizar")
         this.setState({ id:this.props.customer.id, name: this.props.customer.name, lastName: this.props.customer.lastName, dni: this.props.customer.dni, phone: this.props.customer.phone, email: this.props.customer.email, address: this.props.customer.address, birthday: this.props.customer.birthday  });
       }
 

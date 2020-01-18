@@ -25,7 +25,8 @@ import routes from '../../routes';
 import { fetchGetProducts } from '../../services/api/products';
 import { fetchGetCategories } from '../../services/api/categories';
 import { fetchGetCustomers } from '../../services/api/customers';
-import {setProducts,setCategories,setCustomers} from '../../store/actions'
+import { fetchGetOrders,fetchGetTotalAmounts } from '../../services/api/orders';
+import {setProducts,setCategories,setCustomers,setOrders,setTotalAmount} from '../../store/actions'
 
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
@@ -44,25 +45,38 @@ class DefaultLayout extends Component {
   componentDidMount(){
     //Obtener productos
     fetchGetProducts().then(res => res.json()).then(response => {
-      if (response != null) {
-        console.log(response);
+      if (response != null) {        
         this.props.onSetProducts(response);
       }
     });
     //Obtener categorias
     fetchGetCategories().then(res => res.json()).then(response => {
-      if (response != null) {
-        console.log(response);
-        this.props.setCategories(response);
+      if (response != null) {        
+        this.props.onSetCategories(response);
       }
     });
     //Obtener clientes
     fetchGetCustomers().then(res => res.json()).then(response => {
       if (response != null) {
-        console.log("CUSTOMERS RESPONSE: ",response.data);
         this.props.onSetCustomers(response.data);
       }
     });
+     //Obtener Pedidos
+     fetchGetOrders().then(res => res.json()).then(response => {
+      if (response != null) {
+        this.props.onSetOrders(response.data);
+      }
+    });
+
+     //Obtener Pedidos
+     fetchGetTotalAmounts().then(res => res.json()).then(response => {
+      if (response != null) {
+        this.props.onSetTotalAmount(response.totalSales,response.totalDebts);
+      }
+    });
+
+    
+
 
 
   }
@@ -127,7 +141,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSetCustomers: (customers) => dispatch(setCustomers(customers)),  
     onSetProducts: (products) => dispatch(setProducts(products)),  
-    setCategories: (categories) => dispatch(setCategories(categories)),  
+    onSetCategories: (categories) => dispatch(setCategories(categories)),  
+    onSetOrders: (orders) => dispatch(setOrders(orders)),  
+    onSetTotalAmount: (sales,debts) => dispatch(setTotalAmount(sales,debts)),  
   }
 }
 
