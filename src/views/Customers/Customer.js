@@ -54,23 +54,24 @@ class Customer extends Component {
    */
   deleteData = (id) => {
     swal({
-      title: "¿Está seguro de eliminar el customero?",
+      title: "¿Está seguro de eliminar el cliente?",
       text: "Una vez eliminado, no podrá recuperarlo!! ",
       icon: "warning",
       buttons: true,
       dangerMode: true,
     }).then((willDelete) => {
       if (willDelete) {
-        fetchDeleteCustomer(id).then((response) => {
-          swal("Poof! Tu customero ha sido eliminado!", { icon: "success", });
-          this.props.onDeleteCustomer(id)
-          return response.json()
-        }).then((data) => {
-          console.log(data);
+        fetchDeleteCustomer(id).then((response) =>response.json()).
+        then((data) => {
+          if(data.response==="success"){
+            swal("Operación exitosa!",data.message,data.response);
+            this.props.onDeleteCustomer(id)
+          } else swal("Operación exitosa!",data.message,data.response);
+          console.log(data);          
         }).catch((error) => { console.log() })
 
       } else {
-        swal("Tu customero está seguro!");
+        swal("Registro seguro!");
       }
     });
   }

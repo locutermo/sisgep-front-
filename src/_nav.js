@@ -37,6 +37,15 @@ export default {
       },
     }, 
     {
+      name: 'Empleados',
+      url: '/employees',
+      icon: 'icon-people',
+      badge: {
+        variant: 'info',
+        text: 'NEW',
+      },
+    }, 
+    {
       name: 'Pedidos',
       url: '/orders',
       icon: 'icon-people',
