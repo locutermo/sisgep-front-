@@ -16,13 +16,10 @@ import { connect } from 'react-redux'
 import Widget04 from '../Default/Widgets/Widget04';
 import Widget01 from '../Default/Widgets/Widget01';
 import Widget02 from '../Default/Widgets/Widget02'
-
+import {urlImgEmployees} from '../../configuration/Config'
 const brandPrimary = getStyle('--primary')
-const brandSuccess = getStyle('--success')
-const brandInfo = getStyle('--info')
-const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
-// sparkline charts
+
 const sparkLineChartData = [
     {
         data: [1450, 4300, 3000],

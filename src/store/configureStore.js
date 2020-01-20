@@ -4,6 +4,7 @@ import {combineReducers,createStore} from 'redux'
 import productReducer from './reducers/products'
 import categoryReducer from './reducers/categories'
 import customerReducer from './reducers/customers'
+import employeeReducer from './reducers/employees'
 import orderReducer from './reducers/orders'
 
 import loginReducer from './reducers/login'
@@ -12,8 +13,9 @@ const rootReducers =  combineReducers({
     productsReducer: productReducer,
     categoriesReducer: categoryReducer,
     customersReducer: customerReducer, 
+    employeesReducer: employeeReducer, 
     ordersReducer: orderReducer, 
-    login: loginReducer,    
+    auth: loginReducer,    
 })
 
 const configureStore = ()=>{

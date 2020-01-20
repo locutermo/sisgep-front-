@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { connect } from 'react-redux';
+import { Spinner } from 'reactstrap';
 
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
@@ -23,10 +24,11 @@ import navigation from '../../_nav';
 // routes config
 import routes from '../../routes';
 import { fetchGetProducts } from '../../services/api/products';
-import { fetchGetCategories } from '../../services/api/categories';
 import { fetchGetCustomers } from '../../services/api/customers';
 import { fetchGetOrders,fetchGetTotalAmounts } from '../../services/api/orders';
-import {setProducts,setCategories,setCustomers,setOrders,setTotalAmount} from '../../store/actions'
+import {fetchGetCategories,fetchGetEmployees} from '../../services/api'
+
+import {setProducts,setCategories,setCustomers,setOrders,setTotalAmount,setEmployees} from '../../store/actions'
 
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
@@ -35,7 +37,8 @@ const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 class DefaultLayout extends Component {
 
-  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+  loading = () => <Spinner type="grow" color="primary" />
+
 
   signOut(e) {
     e.preventDefault()
@@ -68,14 +71,19 @@ class DefaultLayout extends Component {
       }
     });
 
-     //Obtener Pedidos
+     //Obtener Total de dinero
      fetchGetTotalAmounts().then(res => res.json()).then(response => {
       if (response != null) {
         this.props.onSetTotalAmount(response.totalSales,response.totalDebts);
       }
     });
 
-    
+    //Obtener empleados  
+    fetchGetEmployees().then(res => res.json()).then(response => {
+      if (response != null) {
+        this.props.onSetEmployees(response.data);
+      }
+    });
 
 
 
@@ -86,7 +94,7 @@ class DefaultLayout extends Component {
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)}/>
+            <DefaultHeader employee={this.props.employee} onLogout={e=>this.signOut(e)}/>
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -139,13 +147,22 @@ class DefaultLayout extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onSetEmployees: (employees) => dispatch(setEmployees(employees)),  
     onSetCustomers: (customers) => dispatch(setCustomers(customers)),  
     onSetProducts: (products) => dispatch(setProducts(products)),  
     onSetCategories: (categories) => dispatch(setCategories(categories)),  
     onSetOrders: (orders) => dispatch(setOrders(orders)),  
     onSetTotalAmount: (sales,debts) => dispatch(setTotalAmount(sales,debts)),  
+
+    
   }
 }
 
-export default connect(null, mapDispatchToProps)(DefaultLayout)
+
+const mapStateToProps = state => {
+  return {
+    employee : state.auth.employee 
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout)
 

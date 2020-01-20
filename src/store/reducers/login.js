@@ -1,7 +1,7 @@
 import {SET_EMPLOYEE} from '../actions/actionTypes'
 const initialState={
     employee: [],
-    isAutenticate: false ,
+    isAuthenticated: false ,
 }
 
 const reducer = (state=initialState,action) => {
@@ -10,7 +10,7 @@ const reducer = (state=initialState,action) => {
             return{
                 ...state,
                 employee: action.employee,
-                isAutenticate: action.isAutenticate
+                isAuthenticated: action.isAuthenticated
             }
         default : return state ; 
     }

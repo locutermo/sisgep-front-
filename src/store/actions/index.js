@@ -1,5 +1,6 @@
 export {addProduct,setProducts,deleteProduct,changeFormState,updateProduct,changeModalState} from './products'
 export {addCategory,setCategories,deleteCategory,changeFormStateCategory,updateCategory} from './categories'
 export {addCustomer,setCustomers,deleteCustomer,changeFormStateCustomer,updateCustomer,updateTotalAmountOfCustomer,incrementTotalAmountOfCustomer} from './customers'
+export {addEmployee,setEmployees,deleteEmployee,changeFormStateEmployee,updateEmployee} from './employees'
 export {addOrder,setOrders,changeFormStateOrder,updateOrder,setTotalAmount,incrementTotalAmount,updateTotalAmount} from './orders'
-export {addEmployee} from './login'
+export {addEmployeeAuth} from './login'
