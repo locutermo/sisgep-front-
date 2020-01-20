@@ -4,6 +4,6 @@ export const addEmployeeAuth = (employee, band) => {
     return {
         type: SET_EMPLOYEE,
         employee : employee,
-        isAutenticate : band
+        isAuthenticated : band
     }
 }

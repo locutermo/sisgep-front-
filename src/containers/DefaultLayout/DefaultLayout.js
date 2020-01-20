@@ -1,5 +1,6 @@
 import React, { Component, Suspense } from 'react';
 import { connect } from 'react-redux';
+import { Spinner } from 'reactstrap';
 
 import { Redirect, Route, Switch } from 'react-router-dom';
 import * as router from 'react-router-dom';
@@ -36,7 +37,8 @@ const DefaultHeader = React.lazy(() => import('./DefaultHeader'));
 
 class DefaultLayout extends Component {
 
-  loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
+  loading = () => <Spinner type="grow" color="primary" />
+
 
   signOut(e) {
     e.preventDefault()
@@ -92,7 +94,7 @@ class DefaultLayout extends Component {
       <div className="app">
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
-            <DefaultHeader onLogout={e=>this.signOut(e)}/>
+            <DefaultHeader employee={this.props.employee} onLogout={e=>this.signOut(e)}/>
           </Suspense>
         </AppHeader>
         <div className="app-body">
@@ -156,5 +158,11 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(DefaultLayout)
+
+const mapStateToProps = state => {
+  return {
+    employee : state.auth.employee 
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(DefaultLayout)
 

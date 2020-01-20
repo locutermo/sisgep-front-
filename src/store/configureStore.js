@@ -15,7 +15,7 @@ const rootReducers =  combineReducers({
     customersReducer: customerReducer, 
     employeesReducer: employeeReducer, 
     ordersReducer: orderReducer, 
-    login: loginReducer,    
+    auth: loginReducer,    
 })
 
 const configureStore = ()=>{
