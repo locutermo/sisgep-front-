@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {Button,Card, CardHeader, CardBody,Badge} from 'reactstrap';
 import {BootstrapTable, TableHeaderColumn,SizePerPageDropDown} from 'react-bootstrap-table';
 import 'react-bootstrap-table/dist//react-bootstrap-table-all.min.css';
+import {urlImgEmployees} from '../../configuration/Config'
 
 export default class TableEmployees extends Component {
     constructor(props) {
@@ -72,6 +73,9 @@ export default class TableEmployees extends Component {
         return (cell>20?<h4><Badge color="primary">{cell}</Badge></h4>:<h4><Badge color="danger">{cell}</Badge></h4>)
       } 
 
+      employeePhoto(cell, row) {
+        return <div className="avatar"><img src={cell!=null?urlImgEmployees+cell:'assets/img/avatars/1.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com" /><span className="avatar-status badge-danger"></span></div>
+      }      
     render() {
       const options = {
         // sizePerPage: 30,
@@ -100,6 +104,7 @@ export default class TableEmployees extends Component {
                 <CardBody>
                   <BootstrapTable data={this.props.data || []} version="4" deleteRow={ true } exportCSV  searchPlaceholder='Buscar...' selectRow={ this.selectRowProp } striped hover pagination search options={options}>
                     <TableHeaderColumn row='0' rowSpan='2' dataField="id" hidden export={false} isKey>ID</TableHeaderColumn>
+                    <TableHeaderColumn row='0' rowSpan='2'  dataFormat={this.employeePhoto}  width='80' dataField="photo">Foto</TableHeaderColumn>
                     <TableHeaderColumn row='0' colSpan='4' dataSort csvHeader='Empleado' headerAlign='center'>Empleado</TableHeaderColumn>
                     <TableHeaderColumn row='1' dataAlign='center' dataField="name"   dataSort>Nombre</TableHeaderColumn>
                     <TableHeaderColumn row='1' dataAlign='center'  width='175'  dataField="lastName" dataSort>Apellidos</TableHeaderColumn>                                                        

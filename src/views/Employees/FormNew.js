@@ -13,12 +13,13 @@ import {
   Row
 } from 'reactstrap';
 import swal from 'sweetalert'
+import ImageUploader from 'react-images-upload';
 
 class FormNew extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {      
+    this.state = {
       name: '',
       lastName: '',
       dni: '',
@@ -26,29 +27,44 @@ class FormNew extends Component {
       email: '',
       birthday: '',
       address: '',
+      // pictures: [],
+      picture: []
     };
+
+    this.onDrop = this.onDrop.bind(this);
   }
+
+  onDrop(picture) {
+    this.setState({
+        // pictures: this.state.pictures.concat(picture),
+        picture: picture
+    });
+
+}
+
 
   getData = () => {
 
     let employee = [];
     employee.name = this.state.name;
     employee.lastName = this.state.lastName;
-    employee.dni = this.state.dni ; 
+    employee.dni = this.state.dni;
     employee.phone = this.state.phone;
     employee.email = this.state.email;
     employee.address = this.state.address;
     employee.birthday = this.state.birthday;
+    employee.photo = this.state.picture[0]
     return employee;
   }
 
   cleanFields = () => {
     this.setState({ name: '', lastName: '', dni: '', phone: '', email: '', address: '', birthday: '' });
-  }  
+  }
 
 
-  validate = () => {
-    if (this.state.name != '' && this.state.lastName != '' && this.state.dni != ''&& this.state.email != '') {
+  validate = () => {      
+      console.log("Imagen: ",this.state.picture[0]);
+    if (this.state.name != '' && this.state.lastName != '' && this.state.dni != '' && this.state.email != '') {
       this.props.onAddedData(this.getData()); this.cleanFields();
     } else {
       swal("Operación fallida!!", "Verifica que no hayan campos vacíos", "error")
@@ -86,43 +102,56 @@ class FormNew extends Component {
                 </FormGroup>
               </Col>
             </Row>
-              <Row>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    <Label htmlFor="inputSuccess2i">Correo Electrónico</Label>
-                    <Input type="text" step="any" className="form-control-success" id="inputSuccess2i" value={this.state.email} onChange={(e) => { this.setState({ email: e.target.value }) }} required />
-                    <FormFeedback className="help-block" valid={this.state.email !== ''}>Campo obligatorio</FormFeedback>
-                  </FormGroup>
-                </Col>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    <Label htmlFor="inputAddress">Dirección</Label>
-                    <Input type="text" step="any" className="form-control-success" id="inputAddress" value={this.state.address} onChange={(e) => { this.setState({ address: e.target.value }) }}/>                    
-                  </FormGroup>
-                </Col>
-              </Row>
-              <Row>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    <Label htmlFor="inputBirthday">Fecha de Nacimiento</Label>
-                    <Input type="date" className="form-control-warning" id="inputBirthday" value={this.state.birthday} onChange={(e) => { this.setState({ birthday: e.target.value }) }}></Input>
-                  </FormGroup>
-                </Col>
-                <Col xs="12" md="6">
-                  <FormGroup>
-                    <Label htmlFor="inputPhoneNumber">Nº Celular</Label>
-                    <Input type="text" className="form-control-warning" id="inputPhoneNumber" value={this.state.phone} onChange={(e) => { this.setState({ phone: e.target.value }) }}></Input>
-                  </FormGroup>
-                </Col>         
-              </Row>
-              <FormGroup>
-                <Button color="info" onClick={() => { this.validate() }}> Registrar </Button>
-              </FormGroup>
+            <Row>
+              <Col xs="12" md="6">
+                <FormGroup>
+                  <Label htmlFor="inputSuccess2i">Correo Electrónico</Label>
+                  <Input type="text" step="any" className="form-control-success" id="inputSuccess2i" value={this.state.email} onChange={(e) => { this.setState({ email: e.target.value }) }} required />
+                  <FormFeedback className="help-block" valid={this.state.email !== ''}>Campo obligatorio</FormFeedback>
+                </FormGroup>
+              </Col>
+              <Col xs="12" md="6">
+                <FormGroup>
+                  <Label htmlFor="inputAddress">Dirección</Label>
+                  <Input type="text" step="any" className="form-control-success" id="inputAddress" value={this.state.address} onChange={(e) => { this.setState({ address: e.target.value }) }} />
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="12" md="6">
+                <FormGroup>
+                  <Label htmlFor="inputBirthday">Fecha de Nacimiento</Label>
+                  <Input type="date" className="form-control-warning" id="inputBirthday" value={this.state.birthday} onChange={(e) => { this.setState({ birthday: e.target.value }) }}></Input>
+                </FormGroup>
+              </Col>
+              <Col xs="12" md="6">
+                <FormGroup>
+                  <Label htmlFor="inputPhoneNumber">Nº Celular</Label>
+                  <Input type="text" className="form-control-warning" id="inputPhoneNumber" value={this.state.phone} onChange={(e) => { this.setState({ phone: e.target.value }) }}></Input>
+                </FormGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col xs="12" md="6">
+                <ImageUploader
+                  withIcon={true}
+                  buttonText='Elige la imagen'
+                  onChange={this.onDrop}
+                  imgExtension={['.jpg', '.gif', '.png', '.gif']}
+                  maxFileSize={5242880}
+                  withPreview={true}
+                  singleImage={true}
+                />
+              </Col>
+            </Row>
+            <FormGroup>
+              <Button color="info" onClick={() => { this.validate() }}> Registrar </Button>
+            </FormGroup>
           </Form>
         </CardBody>
       </Card>
-        )
-      }
-    }
-    
+    )
+  }
+}
+
 export default FormNew; 

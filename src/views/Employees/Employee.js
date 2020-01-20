@@ -36,13 +36,12 @@ class Employee extends Component {
    * @memberof Employee
    */
   addData = (employee) => {
-    fetchAddEmployee(employee).then((response) => {      
-      return response.json()
-    }).then((data) => {
-      if(data.response==="success"){
-        swal("Operación exitosa!", data.message, data.response);
-        this.props.onAddEmployee(data.data)
-      }else swal("Operación Fallida!", data.message, data.response);
+    fetchAddEmployee(employee).then((data) => {
+      console.log(data);
+      if(data.data.response==="success"){
+        swal("Operación exitosa!", data.data.message, data.data.response);
+        this.props.onAddEmployee(data.data.data)
+      }else swal("Operación Fallida!", data.data.message, data.data.response);
       
     }).catch(error => {
       console.error(error)
@@ -97,12 +96,12 @@ class Employee extends Component {
    * @memberof Employee
    */
   updateData = (employee) => {
-    fetchUpdateEmployee(employee).then((response) => { return response.json() })
-      .then((data) => {
-        if(data.response==="success"){
-          this.props.onUpdateEmployee(employee);
-          swal("Operación exitosa!",data.message,data.response);
-        }else swal("Operación fallida!",data.message,data.response);
+    fetchUpdateEmployee(employee)
+      .then((res) => {
+        if(res.data.response==="success"){
+          this.props.onUpdateEmployee(res.data.data);
+          swal("Operación exitosa!",res.data.message,res.data.response);
+        }else swal("Operación fallida!",res.data.message,res.data.response);
       }).catch(error => {
         console.log(error)
       })

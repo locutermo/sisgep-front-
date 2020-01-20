@@ -8,6 +8,7 @@ export const addEmployee = (employee) => {
         dni: employee.dni, 
         name: employee.name,
         lastName: employee.lastName,
+        photo:employee.photo,
         phone: employee.phone,
         email: employee.email,
         address: employee.address,

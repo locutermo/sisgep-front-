@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Badge, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle, Nav, NavItem,Breadcrumb, BreadcrumbItem  } from 'reactstrap';
 import PropTypes from 'prop-types';
-
+import {urlImgEmployees} from '../../configuration/Config'
 import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/TIENDA-_1_.svg'
 import sygnet from '../../assets/img/brand/sygnet.svg'
@@ -48,7 +48,7 @@ class DefaultHeader extends Component {
           </NavItem>
           <UncontrolledDropdown nav direction="down">
             <DropdownToggle nav>
-              <img src={'../../assets/img/avatars/1.jpg'} className="img-avatar" alt={this.props.employee.email} />
+              <img src={this.props.employee.photo!=null?urlImgEmployees+this.props.employee.photo:'../../assets/img/avatars/1.jpg'} className="img-avatar" alt={this.props.employee.email} />
             </DropdownToggle>
             <DropdownMenu right>              
               {/* <DropdownItem header tag="div" className="text-center"><strong>Settings</strong></DropdownItem>

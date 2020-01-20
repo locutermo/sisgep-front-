@@ -13,6 +13,7 @@ const reducer = (state = initialState, action) => {
                 employees: state.employees.concat({
                     id: action.id,
                     dni:action.dni,
+                    photo:action.photo,
                     name: action.name,
                     lastName: action.lastName,
                     email: action.email,
@@ -54,6 +55,7 @@ const reducer = (state = initialState, action) => {
                         employee.dni = action.employee.dni;
                         employee.lastName = action.employee.lastName;
                         employee.phone = action.employee.phone;
+                        employee.photo = action.employee.photo;
                         employee.email = action.employee.email;
                         employee.address = action.employee.address;
                         employee.birthday = action.employee.birthday

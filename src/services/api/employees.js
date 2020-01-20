@@ -1,22 +1,17 @@
 import {CONFIG} from '../../configuration/Config'
-
+import axios from 'axios'
 export const fetchAddEmployee = (employee) => {
-  return fetch(CONFIG + 'employees/store', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Accept':'application/json'
-    },
-    method: 'POST',
-    body: JSON.stringify({
-      "name": employee.name,      
-      "lastName": employee.lastName, 
-      "dni" : employee.dni,
-      "phone": employee.phone,
-      "address": employee.address,
-      "email": employee.email,
-      "birthday": employee.birthday,      
-    })
-  })
+
+  let formData = new FormData();
+  formData.append('name',employee.name);
+  formData.append('lastName',employee.lastName);
+  formData.append('dni',employee.dni);
+  formData.append('phone',employee.phone);
+  formData.append('address',employee.address);
+  formData.append('email',employee.email);
+  formData.append('birthday',employee.birthday);
+  formData.append('photo',employee.photo,employee.photo.name);    
+  return axios.post(CONFIG+'employees/store',formData)
 }
 
 export const fetchGetSalesEmployee =(id) =>{
@@ -41,17 +36,24 @@ export const fetchDeleteEmployee = (id) => {
 }
 
 export const fetchUpdateEmployee = (employee) => {
-  return fetch(CONFIG + 'employees/' + employee.id, {
-    headers: { 'Content-Type': 'application/json' },
-    method: 'PUT',
-    body: JSON.stringify({
-      "name": employee.name,      
-      "lastName": employee.lastName, 
-      "dni" : employee.dni,
-      "phone": employee.phone,
-      "address": employee.address,
-      "email": employee.email,
-      "birthday": employee.birthday,      
-    })
-  })
+
+  let formData = new FormData();
+  formData.append('name',employee.name);
+  formData.append('lastName',employee.lastName);
+  formData.append('dni',employee.dni);
+  formData.append('phone',employee.phone);
+  formData.append('address',employee.address);
+  formData.append('email',employee.email);
+  formData.append('birthday',employee.birthday);
+  if(employee.photo!=null){
+    formData.append('photo',employee.photo,employee.photo.name)
+  }   
+  else{
+    formData.append('photo',null);
+    formData.append('remove',true)
+  };
+    
+  console.log("FORMDATA: ",employee.name,employee.dni,employee.email);
+  
+  return axios.post(CONFIG+'employees/'+employee.id,formData)
 }

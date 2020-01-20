@@ -72,7 +72,14 @@ export default class FormUpdate extends React.Component {
         return (
           <Card>
           <CardHeader>
-            <strong>Registro de Cliente</strong>
+          <Row>
+                        <Col xs="12" sm="9">
+                            <strong>Actualización de Cliente</strong>
+                        </Col>
+                        <Col xs="12" sm="3">
+                            <Button size="sm" color="primary" onClick={() => { this.props.onChangeFormState(true) }}>Cambiar a registro</Button>
+                        </Col>
+                    </Row>
           </CardHeader>
           <CardBody>
             <Form className="was-validated">
